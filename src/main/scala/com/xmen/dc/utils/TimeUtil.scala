@@ -12,7 +12,7 @@ import scala.collection.mutable.ListBuffer
 object TimeUtil {
   private val dayFormat = new SimpleDateFormat(TimeConsts.DayPattern)
   private val wholeFormat = new SimpleDateFormat(TimeConsts.wholePattern)
-
+  private val DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd")
   /**
     * 获取当天零时的时间戳
     * @return
@@ -89,4 +89,13 @@ object TimeUtil {
     }
     lDate.toList
   }
+ 
+ def getDateInterval(startDay:String, endDay : String):Arraybuffer[String]={
+  val arr = Arraybuffer[String]()
+  val startDateLong = DATE_FORMAT.parse(startDay).getTime
+   val endDateLong = DATE_FORMAT.parse(endDay).getTime
+  for(i<- 0L to(endDateLong - startDateLong)/(24*60*60*1000){
+               arr+=DATE_FORMAT.parse(startDateLong+i*24*60*60*1000)
+  }
+      arr
 }
