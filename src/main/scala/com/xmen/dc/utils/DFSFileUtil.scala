@@ -65,4 +65,20 @@ object DFSFileUtil {
     }
     true
   }
+ /**
+ 扫描hdfs制定路径下所有大小不为0的文件路径
+ /
+ def scanPath(fs：FileSystem,path：String):ListBuffer[String]={
+     var paths = new ListBuffer[String]()
+     val path = new Path(path)
+     if(fs.exists(path)){
+     if(fs.getFileStatus(path).getLen>0){ paths+=path}
+     else{
+       for(fileStatus<-fs.listStatus(path)){
+           paths ++= scan(fs,fileStatus.getPath.toString)
+       }
+     }
+     }
+     paths
+ }
 }
